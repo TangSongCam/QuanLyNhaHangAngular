@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="assets/images/hero-bg.jpg" alt="">
+    </div>
+    <!-- Phần đầu trang -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" routerLink="/">
+            <span>Feane</span>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+          >
+            <span></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/">Trang chủ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/menu">Thực đơn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/about">Giới thiệu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/book">Đặt bàn</a>
+              </li>
+            </ul>
+            <div class="user_option">
+              <a routerLink="/login" class="user_link" *ngIf="!userName">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Đăng nhập
+              </a>
+              <a routerLink="/register" class="user_link ms-3" *ngIf="!userName">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                Đăng ký
+              </a>
+                     
+
+              <!-- Hiển thị tên người dùng và nút đăng xuất nếu đã đăng nhập -->
+              <div *ngIf="userName">
+                <span class="user_name">Xin chào, {{ userName }}</span>
+                <button class="btn btn-danger" (click)="logout()">Đăng xuất</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- Kết thúc phần đầu trang -->
+  </div>
+
+  <!-- Phần giới thiệu -->
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="img-box">
+            <img src="assets/images/about-img.png" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Chúng tôi là Feane
+              </h2>
+            </div>
+            <p>
+              Có rất nhiều biến thể của các đoạn văn Lorem Ipsum có sẵn, nhưng phần lớn đã bị thay đổi theo một số hình thức, với những châm biếm được tiêm vào, hoặc các từ ngẫu nhiên khiến cho nội dung không thật sự thuyết phục. Nếu bạn định sử dụng một đoạn văn Lorem Ipsum, bạn cần đảm bảo rằng không có gì xấu hổ được ẩn giấu giữa đoạn văn.
+            </p>
+            <a href="" style="text-decoration: none;">
+              Đọc thêm
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Kết thúc phần giới thiệu -->
+
+  <!-- Phần chân trang -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Liên hệ
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Địa điểm
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Gọi +01 1234567890
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  <!-- demo@gmail.com -->
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              Feane
+            </a>
+            <p>
+              Cần thiết, biến đây trở thành bộ tạo nội dung thực sự đầu tiên trên Internet. Nó sử dụng một từ điển gồm hơn 200 từ tiếng Latin, kết hợp với
+            </p>
+            <div class="footer_social">
+              <a href="" style="text-decoration: none;">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="" style="text-decoration: none;">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="" style="text-decoration: none;">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="" style="text-decoration: none;">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="" style="text-decoration: none;">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Giờ mở cửa
+          </h4>
+          <p>
+            Hàng ngày
+          </p>
+          <p>
+            10:00 Sáng - 10:00 Tối
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> Bản quyền thuộc về
+          <a href="https://html.design/">Free Html Templates</a><br><br>
+          &copy; <span id="displayYear"></span> Phân phối bởi
+          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  <!-- Kết thúc phần chân trang -->
+
+  <!-- jQuery -->
+  <script src="/src/assets/js/jquery-3.4.1.min.js"></script>
+  <!-- Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS -->
+  <script src="/src/assets/js/bootstrap.js"></script>
+  <!-- Owl Carousel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- Isotope -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <!-- Nice Select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <!-- Custom JS -->
+  <script src="/src/assets/js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+  <!-- End Google Map -->
+
+</body>
+
+</html>

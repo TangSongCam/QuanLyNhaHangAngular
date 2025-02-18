@@ -1,0 +1,191 @@
+<!-- Header Section -->
+<header class="header_section">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg custom_nav-container">
+      <a class="navbar-brand" routerLink="/">
+        <span>Feane</span>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+      >
+        <span></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/">Trang chủ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/menu">Thực đơn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about">Giới thiệu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/book">Đặt bàn</a>
+          </li>
+        </ul>
+        <div class="user_option">
+          <a routerLink="/login" class="user_link" *ngIf="!userName">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Đăng nhập
+          </a>
+          <a routerLink="/register" class="user_link ms-3" *ngIf="!userName">
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+            Đăng ký
+          </a>        
+
+          <!-- Hiển thị tên người dùng và nút đăng xuất nếu đã đăng nhập -->
+          <div *ngIf="userName">
+            <span class="user_name">Xin chào, {{ userName }}</span>
+            <button class="btn btn-danger" (click)="logout()">Đăng xuất</button>
+          </div>
+        </div>
+        
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Book Section -->
+<section class="book_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>📅 Đặt bàn</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form_container">
+          <form (ngSubmit)="onSubmit()">
+            <div>
+              <input type="text" class="form-control" [(ngModel)]="booking.customerName" 
+                     name="customerName" placeholder="👤 Tên của bạn" required />
+            </div>
+            <div>
+              <input type="text" class="form-control" [(ngModel)]="booking.phoneNumber" 
+                     name="phoneNumber" placeholder="📞 Số điện thoại" required />
+            </div>
+            <div>
+              <input type="email" class="form-control" [(ngModel)]="booking.email" 
+                     name="email" placeholder="📧 Email của bạn" required />
+            </div>
+            <div>
+              <select class="form-control nice-select wide" [(ngModel)]="booking.tableId" 
+                      name="tableId" required>
+                <option value="" disabled selected>🍽️ Chọn bàn</option>
+                <option *ngFor="let table of tables" [value]="table.id" [disabled]="table.status === 'occupied'">
+                  {{ table.id }} - {{ table.status === 'available' ? '✅ Còn trống' : '❌ Đã đặt' }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <input type="date" class="form-control" [(ngModel)]="booking.bookingDate" 
+                     name="bookingDate" required />
+            </div>
+            <div>
+              <input type="time" class="form-control" [(ngModel)]="booking.bookingTime" 
+                     name="bookingTime" required />
+            </div>
+            <div>
+              <textarea class="form-control" [(ngModel)]="booking.notes" 
+                        name="notes" placeholder="📝 Yêu cầu đặc biệt" rows="3"></textarea>
+            </div>
+            <div class="btn_box">
+              <button type="submit" class="btn btn-primary">📌 Đặt ngay</button>
+            </div>
+
+            <div *ngIf="userRole === 'Admin'" class="admin-buttons d-flex justify-content-between">
+              <button type="button" class="btn btn-info" routerLink="/table-list">📋 Danh sách bàn</button>
+              <button type="button" class="btn btn-warning" routerLink="/book-list">📝 Danh sách đặt bàn</button>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+        <div class="col-md-6">
+          <!-- Google Map -->
+          <div class="map_container" style="height: 400px; margin-top: 20px;">
+            <iframe
+              width="100%"
+              height="100%"
+              style="border:0;"
+              loading="lazy"
+              allowfullscreen
+              src="https://www.google.com/maps?q=XCJG+CFJ,+Nguyễn+Hoàng,+Phường+7,+Đà+Lạt,+Lâm+Đồng,+Việt+Nam&output=embed">
+            </iframe>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Footer Section -->
+<footer class="footer_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 footer-col">
+        <div class="footer_contact">
+          <h4>Liên hệ</h4>
+          <div class="contact_link_box">
+            <a href="#">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>Địa điểm</span>
+            </a>
+            <a href="#">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>Gọi +84: 0358082764</span>
+            </a>
+            <a href="#">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>Songcam2k3</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 footer-col">
+        <div class="footer_detail">
+          <a href="#" class="footer-logo">Feane</a>
+          <p>
+            Điều cần thiết, tạo nên bộ tạo nội dung đầu tiên trên Internet. Nó sử dụng một từ điển gồm hơn 200 từ tiếng Latin, kết hợp với
+          </p>
+          <div class="footer_social">
+            <a href="#" style="text-decoration: none;">
+              <i class="fa fa-facebook" aria-hidden="true"></i>
+            </a>
+            <a href="#" style="text-decoration: none;">
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+            <a href="#" style="text-decoration: none;">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="#" style="text-decoration: none;">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="#" style="text-decoration: none;">
+              <i class="fa fa-pinterest" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 footer-col">
+        <h4>Giờ mở cửa</h4>
+        <p>Hàng ngày</p>
+        <p>10:00 Sáng - 10:00 Tối</p>
+      </div>
+    </div>
+    <div class="footer-info">
+      <p>
+        &copy; <span id="displayYear"></span> Bản quyền thuộc về
+        <a href="https://html.design/">Free Html Templates</a><br><br>
+        &copy; <span id="displayYear"></span> Phân phối bởi
+        <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+      </p>
+    </div>
+  </div>
+</footer>
+<!-- footer section -->

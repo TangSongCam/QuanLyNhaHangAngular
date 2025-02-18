@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="assets/images/hero-bg.jpg" alt="">
+    </div>
+    <!-- Header Section -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" routerLink="/">
+            <span>Feane</span>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+          >
+            <span></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/">Trang chủ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/menu">Thực đơn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/about">Giới thiệu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/book">Đặt bàn</a>
+              </li>
+            </ul>
+            <div class="user_option">
+              <!-- Hiển thị nút Đăng nhập/Đăng ký nếu chưa đăng nhập -->
+              <a routerLink="/login" class="user_link" *ngIf="!userName">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Đăng nhập
+              </a>
+              <a routerLink="/register" class="user_link ms-3" *ngIf="!userName">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                Đăng ký
+              </a>
+              <!-- Hiển thị tên người dùng và nút Đăng xuất nếu đã đăng nhập -->
+              <div *ngIf="userName">
+                <span class="user_name">Xin chào, {{ userName }}</span>
+                <button class="btn btn-danger" (click)="logout()">Đăng xuất</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Slider Section -->
+    <section class="slider_section">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-7 col-lg-6">
+                  <div class="detail-box">
+                    <h1>Nhà hàng thức ăn nhanh</h1>
+                    <p>
+                      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam
+                      quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil
+                      ducimus libero ipsam.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Thêm các carousel item khác nếu cần -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Food Section -->
+  <section class="food_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>Thực đơn của chúng tôi</h2>
+      </div>
+
+      <!-- Bộ lọc danh mục -->
+      <ul class="filters_menu">
+        <li
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === category"
+          (click)="filermenu(category)"
+        >
+          {{ category }}
+        </li>
+      </ul>
+
+      <!-- Form tìm kiếm với input -->
+      <form class="search-form" (ngSubmit)="searchMenu()">
+        <input
+          type="text"
+          class="form-control search-input"
+          [(ngModel)]="searchTerm"
+          name="search"
+          placeholder="Tìm kiếm món ăn..."
+          (input)="searchMenu()"
+        />
+        <button class="btn search-btn" type="submit">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </form>
+
+      <!-- Hiển thị danh sách món ăn -->
+      <div class="filters-content">
+        <div class="row grid">
+          <div
+            class="col-sm-6 col-lg-4 all"
+            *ngFor="let item of fileteredMenuItems"
+          >
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  <!-- Sử dụng hàm getImageUrl(item) để hiển thị ảnh -->
+                  <img [src]="getImageUrl(item)" alt="{{ item.name }}" />
+                </div>
+                <div class="detail-box">
+                  <h5>{{ item.name }}</h5>
+                  <p>{{ item.description }}</p>
+                </div>                  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="img-box">
+            <img src="assets/images/about-img.png" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>Chúng tôi là Feane</h2>
+            </div>
+            <p>
+              Có nhiều biến thể của các đoạn văn Lorem Ipsum hiện có, nhưng phần lớn đã bị thay đổi theo một số hình thức, bởi sự châm biếm được thêm vào hoặc những từ ngẫu nhiên khiến cho chúng trông không thực sự đáng tin cậy.
+            </p>
+            <a href="#" style="text-decoration: none;">Đọc thêm</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Book Section -->
+  <section class="book_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>📅 Đặt bàn</h2>
+      </div>
+      <div class="row">
+        <!-- Cột trái: Form đặt bàn -->
+        <div class="col-md-6">
+          <div class="form_container">
+            <form (ngSubmit)="onSubmit()">
+              <div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="booking.customerName" 
+                  name="customerName"
+                  placeholder="👤 Tên của bạn"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="booking.phoneNumber" 
+                  name="phoneNumber"
+                  placeholder="📞 Số điện thoại"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  class="form-control"
+                  [(ngModel)]="booking.email" 
+                  name="email"
+                  placeholder="📧 Email của bạn"
+                  required
+                />
+              </div>
+              <div>
+                <select
+                  class="form-control nice-select wide"
+                  [(ngModel)]="booking.tableId"
+                  name="tableId"
+                  required
+                >
+                  <option value="" disabled selected>🍽️ Chọn bàn</option>
+                  <option
+                    *ngFor="let table of tables"
+                    [value]="table.id"
+                    [disabled]="table.status === 'occupied'"
+                  >
+                    {{ table.id }} - {{ table.status === 'available' ? '✅ Còn trống' : '❌ Đã đặt' }}
+                  </option>
+                </select>
+              </div>
+              <div>
+                <input
+                  type="date"
+                  class="form-control"
+                  [(ngModel)]="booking.bookingDate" 
+                  name="bookingDate"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="time"
+                  class="form-control"
+                  [(ngModel)]="booking.bookingTime" 
+                  name="bookingTime"
+                  required
+                />
+              </div>
+              <div>
+                <textarea
+                  class="form-control"
+                  [(ngModel)]="booking.notes"
+                  name="notes"
+                  placeholder="📝 Yêu cầu đặc biệt"
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="btn_box">
+                <button type="submit" class="btn btn-primary">📌 Đặt ngay</button>
+              </div>
+
+              <!-- Chức năng dành cho Admin -->
+              <div *ngIf="userRole === 'Admin'" class="admin-buttons d-flex justify-content-between">
+                <button type="button" class="btn btn-info" routerLink="/table-list">📋 Danh sách bàn</button>
+                <button type="button" class="btn btn-warning" routerLink="/book-list">📝 Danh sách đặt bàn</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+
+        <!-- Cột phải: Nhúng Google Map hoặc nội dung khác -->
+        <div class="col-md-6">
+          <!-- Ví dụ nhúng Google Map -->
+          <div class="map_container" style="height: 400px; margin-top: 20px;">
+            <iframe
+              width="100%"
+              height="100%"
+              style="border:0;"
+              loading="lazy"
+              allowfullscreen
+              src="https://www.google.com/maps?q=XCJG+CFJ,+Nguyễn+Hoàng,+Phường+7,+Đà+Lạt,+Lâm+Đồng,+Việt+Nam&output=embed">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer Section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>Liên hệ</h4>
+            <div class="contact_link_box">
+              <a href="#">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>Địa điểm</span>
+              </a>
+              <a href="#">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>Gọi +84: 0358082764</span>
+              </a>
+              <a href="#">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>Songcam2k3</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="#" class="footer-logo">Feane</a>
+            <p>
+              Điều cần thiết, tạo nên bộ tạo nội dung đầu tiên thực sự trên Internet. Nó sử dụng một từ điển gồm hơn 200 từ tiếng Latin, kết hợp với
+            </p>
+            <div class="footer_social">
+              <a href="#" style="text-decoration: none;">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="#" style="text-decoration: none;">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="#" style="text-decoration: none;">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="#" style="text-decoration: none;">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="#" style="text-decoration: none;">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>Giờ mở cửa</h4>
+          <p>Hàng ngày</p>
+          <p>10:00 Sáng - 10:00 Tối</p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">Free Html Templates</a><br><br>
+          &copy; <span id="displayYear"></span> Distributed By
+          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script src="src/assets/js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <!-- bootstrap js -->
+  <script src="src/assets/js/bootstrap.js"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <!-- custom js -->
+  <script src="src/assets/js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+  <!-- End Google Map -->
+
+</body>
+</html>

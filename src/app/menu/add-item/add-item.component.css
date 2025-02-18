@@ -1,0 +1,45 @@
+/* Nền tổng thể */
+body {
+    background-color: #f8f9fa;
+  }
+  
+  /* Tùy chỉnh input */
+  .input-custom {
+    border-radius: 10px;
+    border: 2px solid #dee2e6;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .input-custom:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Tùy chỉnh card */
+  .card {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+  }
+  
+  /* Nút bấm đẹp */
+  .btn-custom {
+    background: linear-gradient(to right, #007bff, #6610f2);
+    border: none;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-custom:hover {
+    background: linear-gradient(to right, #6610f2, #007bff);
+    transform: scale(1.05);
+  }
+  
+  /* Căn giữa tiêu đề */
+  .text-center {
+    font-weight: bold;
+  }
+  

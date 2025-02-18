@@ -1,0 +1,38 @@
+.user_link,.order_online, .btn1, .btn2,.footer-logo, .cart_link{
+    text-decoration: none;
+}
+
+/* Tạo khung bao quanh phần tìm kiếm */
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Phần input tìm kiếm */
+  .search-input {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    width: 100%;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Thêm hiệu ứng khi người dùng hover vào input */
+  .search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Icon bên trong nút tìm kiếm */
+  .search-btn i {
+    font-size: 20px;
+  }
+  

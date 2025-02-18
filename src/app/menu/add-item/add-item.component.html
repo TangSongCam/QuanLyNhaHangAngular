@@ -1,0 +1,71 @@
+<div class="container mt-4">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body">
+      <h2 class="text-center text-primary mb-4">Thêm món ăn mới</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="name" class="form-label fw-bold">🍽️ Tên món ăn</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control input-custom"
+            [(ngModel)]="newItem.name"
+            name="name"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label fw-bold">📜 Mô tả</label>
+          <textarea
+            id="description"
+            class="form-control input-custom"
+            rows="3"
+            [(ngModel)]="newItem.description"
+            name="description"
+            required
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label fw-bold">💰 Giá</label>
+          <input
+            type="number"
+            id="price"
+            class="form-control input-custom"
+            [(ngModel)]="newItem.price"
+            name="price"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label fw-bold">🖼️ Ảnh món ăn</label>
+          <input
+            type="file"
+            id="image"
+            class="form-control input-custom"
+            (change)="onFileSelected($event)"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="category" class="form-label fw-bold">📂 Danh mục</label>
+          <input
+            type="text"
+            id="category"
+            class="form-control input-custom"
+            [(ngModel)]="newItem.category"
+            name="category"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 btn-custom">
+          ➕ Thêm món ăn
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

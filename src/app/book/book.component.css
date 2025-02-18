@@ -1,0 +1,82 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('/assets/images/hero-bg.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.header_section{
+  background-color: black;
+  color: white;
+}
+
+.book_section {
+    padding: 50px 0;
+    background-color: #f8f9fa;
+  }
+  
+  .heading_container h2 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .form_container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group-text {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 18px;
+    padding: 10px;
+  }
+  
+  .form-control {
+    border-radius: 0 5px 5px 0;
+    border: 1px solid #ccc;
+  }
+  
+  .btn-block {
+    width: 100%;
+  }
+  
+  .btn_box {
+    text-align: center;
+  }
+  
+  .admin-buttons {
+    margin-top: 15px;
+  }
+  
+  .admin-buttons button {
+    flex: 1;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .admin-buttons button:last-child {
+    margin-right: 0;
+  }
+  
+  .admin-buttons button:hover {
+    opacity: 0.9;
+  }
+  
