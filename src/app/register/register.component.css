@@ -1,4 +1,4 @@
-/* Thêm FontAwesome để hiển thị icon */
+
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
 
 body {
@@ -79,7 +79,6 @@ body {
     color: #333;
 }
 
-/* Nút đăng ký */
 .btn-auth {
     display: block;
     width: 100%;
@@ -102,7 +101,6 @@ body {
     box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
 }
 
-/* Link đăng nhập */
 .auth-link {
     color: #e74c3c;
     text-decoration: none;

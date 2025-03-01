@@ -45,7 +45,6 @@ export class AddItemComponent {
       (response) => {
         console.log('Response from API:', response);
         alert('Thêm món ăn thành công!');
-        // Điều hướng về trang menu
         this.router.navigate(['/menu']);
       },
       (error) => {

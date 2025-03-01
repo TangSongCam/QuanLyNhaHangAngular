@@ -1,9 +1,14 @@
-/* Nền tổng thể */
+
 body {
-    background-color: #f8f9fa;
+  font-family: 'Poppins', sans-serif;
+  background: url('/assets/images/hero-bg.jpg') no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
   }
   
-  /* Tùy chỉnh input */
   .input-custom {
     border-radius: 10px;
     border: 2px solid #dee2e6;
@@ -15,7 +20,7 @@ body {
     box-shadow: 0 0 8px rgba(255, 193, 7, 0.3);
   }
   
-  /* Tùy chỉnh card */
+
   .card {
     max-width: 500px;
     margin: auto;
@@ -23,7 +28,7 @@ body {
     padding: 20px;
   }
   
-  /* Nút bấm đẹp */
+
   .btn-custom {
     background: linear-gradient(to right, #ffc107, #fd7e14);
     border: none;
@@ -38,7 +43,7 @@ body {
     transform: scale(1.05);
   }
   
-  /* Căn giữa tiêu đề */
+
   .text-center {
     font-weight: bold;
   }

@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -7,8 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:5168/api/User';
+  private isBrowser: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   // Phương thức đăng nhập
   login(credentials: { email: string; password: string }): Observable<any> {
@@ -22,38 +26,37 @@ export class AuthService {
 
   // Lưu tên người dùng vào localStorage
   setUserName(userName: string): void {
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser) {
       localStorage.setItem('userName', userName);
     }
   }
 
   // Lấy tên người dùng từ localStorage
   getUserName(): string | null {
-    if (typeof window !== 'undefined') {
-      const userName = localStorage.getItem('userName');
-      return userName ? userName : null;
+    if (this.isBrowser) {
+      return localStorage.getItem('userName');
     }
     return null;
   }
 
-  // Lưu vai trò người dùng (nếu cần)
+  // Lưu vai trò người dùng
   setRole(role: string): void {
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser) {
       localStorage.setItem('role', role);
     }
   }
 
   // Lấy vai trò người dùng từ localStorage
   getRole(): string | null {
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser) {
       return localStorage.getItem('role');
     }
     return null;
   }
 
-  // Đăng xuất: xóa thông tin khỏi localStorage
+  // Đăng xuất
   logout(): void {
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser) {
       localStorage.removeItem('role');
       localStorage.removeItem('userName');
     }

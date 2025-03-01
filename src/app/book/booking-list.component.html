@@ -1,146 +1,96 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">📅 Danh Sách Đặt Bàn</h2>
-
-  <!-- Bảng danh sách đặt bàn -->
-  <table class="table table-bordered table-striped text-center">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>Khách hàng</th>
-        <th>Điện thoại</th>
-        <th>Ngày đặt</th>
-        <th>Số khách</th>
-        <th>Bàn</th>
-        <th>Ghi chú</th>
-        <th>Hành động</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let booking of bookings">
-        <td>{{ booking.id }}</td>
-        <td>{{ booking.customerName }}</td>
-        <td>{{ booking.phoneNumber }}</td>
-        <td>{{ booking.bookingDate | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ booking.numberOfGuests }}</td>
-        <td>{{ booking.tableId }}</td>
-        <td>{{ booking.notes }}</td>
-        <td>
-          <button class="btn btn-warning btn-sm me-2" (click)="edit(booking)">✏️ Sửa</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteBooking(booking.id)">🗑️ Xóa</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Form Thêm Bàn-->
-  <div class="card mt-4 shadow">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <h4 class="card-title mb-0">➕ Thêm Đặt Bàn</h4>
-      <button class="btn btn-link" (click)="toggleAddForm()">
-        {{ showAddForm ? 'Thu gọn ▲' : 'Mở rộng ▼' }}
-      </button>
-    </div>
-    <div class="card-body" *ngIf="showAddForm">
-      <div class="mb-3">
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="newBooking.customerName"
-          placeholder="Tên khách hàng"
-        />
+<body>
+  <div class="container mt-4">
+    <h2 class="text-center mb-4">📅 Danh Sách Đặt Bàn</h2>
+  
+    <table class="table table-bordered table-striped text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Khách hàng</th>
+          <th>Điện thoại</th>
+          <th>Ngày đặt</th>
+          <th>Thời gian</th>
+          <th>Số khách</th>
+          <th>Bàn</th>
+          <th>Ghi chú</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings">
+          <td>{{ booking.id }}</td>
+          <td>{{ booking.customerName }}</td>
+          <td>{{ booking.phoneNumber }}</td>
+          <td>{{ booking.bookingDate | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ booking.bookingTime }}</td>
+          <td>{{ booking.numberOfGuests }}</td>
+          <td>{{ booking.tableId }}</td>
+          <td>{{ booking.notes }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" (click)="edit(booking)">✏️ Sửa</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteBooking(booking.id)">🗑️ Xóa</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="editBooking" class="card mt-4 shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="card-title mb-0">✏️ Chỉnh Sửa Đặt Bàn</h4>
+        <button class="btn btn-link" (click)="toggleEditForm()">
+          {{ showEditForm ? 'Thu gọn ▲' : 'Mở rộng ▼' }}
+        </button>
       </div>
-      <div class="mb-3">
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="newBooking.phoneNumber"
-          placeholder="Số điện thoại"
-        />
+      <div class="card-body" *ngIf="showEditForm">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editBooking.customerName"
+            placeholder="Tên khách hàng"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editBooking.phoneNumber"
+            placeholder="Số điện thoại"
+          />
+        </div>
+        <div class="mb-3">
+          <input type="date" class="form-control" [(ngModel)]="editBooking.bookingDate" />
+        </div>
+        <div class="mb-3">
+          <input type="time" class="form-control" [(ngModel)]="editBooking.bookingTime" />
+        </div>
+        <div class="mb-3">
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="editBooking.numberOfGuests"
+            placeholder="Số khách"
+          />
+        </div>
+        <div class="mb-3">
+          <select class="form-control" [(ngModel)]="editBooking.tableId" name="tableId" required>
+            <option value="" disabled>🍽️ Chọn bàn</option>
+            <option *ngFor="let table of tables" [value]="table.id" [disabled]="table.status === 'occupied'">
+              {{ table.id }} - {{ table.status === 'available' ? '✅ Còn trống' : '❌ Đã đặt' }}
+            </option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="editBooking.notes"
+            placeholder="Ghi chú"
+          />
+        </div>
+        <button class="btn btn-success" (click)="updateBooking()">Cập nhật</button>
       </div>
-      <div class="mb-3">
-        <input type="date" class="form-control" [(ngModel)]="newBooking.bookingDate" />
-      </div>
-      <div class="mb-3">
-        <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="newBooking.numberOfGuests"
-          placeholder="Số khách"
-        />
-      </div>
-      <div class="mb-3">
-        <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="newBooking.tableId"
-          placeholder="ID Bàn"
-        />
-      </div>
-      <div class="mb-3">
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="newBooking.notes"
-          placeholder="Ghi chú"
-        />
-      </div>
-      <button class="btn btn-primary" (click)="addBooking()">Thêm</button>
-    </div>
-  </div>
-
-  <!-- Form Chỉnh Sửa Bàn -->
-  <div *ngIf="editBooking" class="card mt-4 shadow">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <h4 class="card-title mb-0">✏️ Chỉnh Sửa Đặt Bàn</h4>
-      <button class="btn btn-link" (click)="toggleEditForm()">
-        {{ showEditForm ? 'Thu gọn ▲' : 'Mở rộng ▼' }}
-      </button>
-    </div>
-    <div class="card-body" *ngIf="showEditForm">
-      <div class="mb-3">
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="editBooking.customerName"
-          placeholder="Tên khách hàng"
-        />
-      </div>
-      <div class="mb-3">
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="editBooking.phoneNumber"
-          placeholder="Số điện thoại"
-        />
-      </div>
-      <div class="mb-3">
-        <input type="date" class="form-control" [(ngModel)]="editBooking.bookingDate" />
-      </div>
-      <div class="mb-3">
-        <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="editBooking.numberOfGuests"
-          placeholder="Số khách"
-        />
-      </div>
-      <div class="mb-3">
-        <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="editBooking.tableId"
-          placeholder="ID Bàn"
-        />
-      </div>
-      <div class="mb-3">
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="editBooking.notes"
-          placeholder="Ghi chú"
-        />
-      </div>
-      <button class="btn btn-success" (click)="updateBooking()">Cập nhật</button>
     </div>
   </div>
-</div>
+  
+</body>

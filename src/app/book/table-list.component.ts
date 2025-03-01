@@ -9,15 +9,13 @@ import { TableService } from './TableService';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './table-list.component.html',
-  styleUrls: ['./book.component.css']  // Nếu bạn có file CSS riêng
+  styleUrls: ['./book.component.css'] 
 })
 export class TableListComponent implements OnInit {
   tables: any[] = [];
-  // Mẫu thêm bàn có thêm thuộc tính "Name"
   newTable: any = { id: 0, name: '', status: 'Available' };
   editTable: any = null;
 
-  // Biến điều khiển hiển thị form Thêm và Sửa
   showAddForm: boolean = true;
   showEditForm: boolean = true;
 
@@ -48,7 +46,6 @@ export class TableListComponent implements OnInit {
     this.tableService.addTable(this.newTable).subscribe(
       (table) => {
         this.tables.push(table);
-        // Reset form thêm bàn
         this.newTable = { id: 0, name: '', status: 'Available' };
         alert('Thêm bàn thành công!');
       },
@@ -60,7 +57,6 @@ export class TableListComponent implements OnInit {
   }
 
   edit(table: any): void {
-    // Sao chép dữ liệu bàn cần sửa để không làm thay đổi trực tiếp trong danh sách
     this.editTable = { ...table };
     this.showEditForm = true;
   }
@@ -101,12 +97,10 @@ export class TableListComponent implements OnInit {
     );
   }
 
-  // Hàm toggle cho form Thêm Bàn
   toggleAddForm(): void {
     this.showAddForm = !this.showAddForm;
   }
 
-  // Hàm toggle cho form Sửa Bàn
   toggleEditForm(): void {
     this.showEditForm = !this.showEditForm;
   }

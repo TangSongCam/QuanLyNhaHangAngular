@@ -79,7 +79,6 @@ body {
     color: #333;
 }
 
-/* Nút đăng nhập */
 .btn-auth {
     display: block;
     width: 100%;
@@ -102,7 +101,6 @@ body {
     box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
 }
 
-/* Link đăng ký */
 .auth-link {
     color: #3498db;
     text-decoration: none;

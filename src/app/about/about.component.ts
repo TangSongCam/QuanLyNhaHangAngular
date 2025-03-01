@@ -17,7 +17,7 @@ import { AuthService } from '../services/auth.service';
   ],
   providers: [ApiService],
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']  // Đã chuyển thành styleUrls
+  styleUrls: ['./about.component.css']  
 })
 export class AboutComponent implements OnInit {
   userName: string | null = '';
@@ -32,9 +32,8 @@ export class AboutComponent implements OnInit {
     console.log('Tên người dùng:', this.userName);
   }
 
-  // Phương thức đăng xuất
   logout(): void {
-    this.authService.logout(); // Gọi hàm logout để xóa thông tin
-    this.userName = null; // Xóa tên người dùng khỏi component
+    this.authService.logout(); 
+    this.userName = null;
   }
 }

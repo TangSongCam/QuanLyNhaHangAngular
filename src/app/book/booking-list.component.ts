@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { BookingService } from './booking.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-booking-list',
@@ -17,20 +18,28 @@ export class BookingListComponent implements OnInit {
     customerName: '',
     phoneNumber: '',
     bookingDate: '',
+    bookingTime: '',
     numberOfGuests: 1,
     tableId: null,
-    notes: '',
+    notes: ''
   };
+
   editBooking: any = null;
 
-  // Biến điều khiển hiển thị form
   showAddForm: boolean = true;
   showEditForm: boolean = true;
 
-  constructor(private bookingService: BookingService, private http: HttpClient) {}
+  tables: { id: number; name: string; status: string }[] = [];
+
+  constructor(
+    private bookingService: BookingService, 
+    private http: HttpClient,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
     this.getBookings();
+    this.fetchTables();
   }
 
   getBookings(): void {
@@ -45,8 +54,22 @@ export class BookingListComponent implements OnInit {
     );
   }
 
+  fetchTables(): void {
+    this.apiService.getTables().subscribe(
+      (response: any[]) => {
+        this.tables = response.map(table => ({
+          id: table.id,
+          name: table.name ? table.name : `Bàn ${table.id}`,
+          status: table.status.toLowerCase()
+        }));
+      },
+      (error) => {
+        alert('Lỗi khi tải danh sách bàn. Vui lòng thử lại!');
+      }
+    );
+  }
+
   addBooking(): void {
-    // Kiểm tra đầu vào cơ bản
     if (!this.newBooking.customerName.trim() || !this.newBooking.phoneNumber.trim()) {
       alert('Vui lòng nhập tên khách hàng và số điện thoại!');
       return;
@@ -54,15 +77,19 @@ export class BookingListComponent implements OnInit {
 
     this.bookingService.addBooking(this.newBooking).subscribe(
       (booking) => {
+        const selectedTable = this.tables.find(t => t.id === booking.tableId);
+        if (selectedTable) {
+          selectedTable.status = 'occupied';
+        }
         this.bookings.push(booking);
-        
         this.newBooking = {
           customerName: '',
           phoneNumber: '',
           bookingDate: '',
+          bookingTime: '',
           numberOfGuests: 1,
           tableId: null,
-          notes: '',
+          notes: ''
         };
         alert('Thêm đặt bàn thành công!');
       },
@@ -74,24 +101,33 @@ export class BookingListComponent implements OnInit {
   }
 
   edit(booking: any): void {
-    // Sao chép booking cần sửa
-    this.editBooking = { ...booking };
-    // Mở form sửa
+    this.editBooking = { ...booking, originalTableId: booking.tableId };
     this.showEditForm = true;
   }
 
   updateBooking(): void {
     if (!this.editBooking) return;
 
+    const originalTableId = this.editBooking.originalTableId;
+    const newTableId = this.editBooking.tableId;
+
     this.bookingService.updateBooking(this.editBooking).subscribe(
       () => {
         const index = this.bookings.findIndex((b) => b.id === this.editBooking.id);
         if (index !== -1) {
-          // Cập nhật lại mảng bookings với dữ liệu từ editBooking
           this.bookings[index] = { ...this.editBooking };
         }
+        if (originalTableId !== newTableId) {
+          const oldTable = this.tables.find(t => t.id === originalTableId);
+          if (oldTable) {
+            oldTable.status = 'available';
+          }
+          const newTable = this.tables.find(t => t.id === newTableId);
+          if (newTable) {
+            newTable.status = 'occupied';
+          }
+        }
         alert('Cập nhật đặt bàn thành công!');
-        // Đóng form chỉnh sửa
         this.editBooking = null;
       },
       (error) => {
@@ -102,13 +138,21 @@ export class BookingListComponent implements OnInit {
   }
 
   deleteBooking(id: number): void {
-    // Xác nhận trước khi xóa
     if (!confirm('Bạn có chắc chắn muốn xóa đặt bàn này không?')) {
       return;
     }
 
+    console.log('Deleting booking with id:', id);
+
     this.bookingService.deleteBooking(id).subscribe(
       () => {
+        const bookingToDelete = this.bookings.find(b => b.id === id);
+        if (bookingToDelete) {
+          const table = this.tables.find(t => t.id === bookingToDelete.tableId);
+          if (table) {
+            table.status = 'available';
+          }
+        }
         this.bookings = this.bookings.filter((b) => b.id !== id);
         alert('Xóa đặt bàn thành công!');
       },
@@ -119,12 +163,10 @@ export class BookingListComponent implements OnInit {
     );
   }
 
-  // Hàm toggle cho form Thêm Đặt Bàn
   toggleAddForm(): void {
     this.showAddForm = !this.showAddForm;
   }
 
-  // Hàm toggle cho form Chỉnh Sửa Đặt Bàn
   toggleEditForm(): void {
     this.showEditForm = !this.showEditForm;
   }

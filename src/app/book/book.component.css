@@ -10,6 +10,10 @@ body {
     margin: 0;
 }
 
+.text-center {
+  color: white;
+}
+
 .header_section{
   background-color: black;
   color: white;

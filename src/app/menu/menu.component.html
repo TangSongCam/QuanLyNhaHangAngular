@@ -7,7 +7,6 @@
     <div class="bg-box">
       <img src="assets/images/hero-bg.jpg" alt="">
     </div>
-    <!-- Phần đầu trang -->
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container">
@@ -51,7 +50,6 @@
                 <i class="fa fa-shopping-cart" style="color: white;" aria-hidden="true"></i>
               </a>  
 
-              <!-- Hiển thị tên người dùng và nút đăng xuất nếu đã đăng nhập -->
               <div *ngIf="userName">
                 <span class="user_name">Xin chào, {{ userName }}</span>
                 <button class="btn btn-danger" (click)="logout()">Đăng xuất</button>
@@ -62,17 +60,14 @@
         </nav>
       </div>
     </header>
-    <!-- Kết thúc phần đầu trang -->
   </div>
 
-  <!-- Phần thực đơn -->
   <section class="food_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>Thực đơn của chúng tôi</h2>
       </div>
 
-      <!-- Bộ lọc danh mục -->
       <ul class="filters_menu">
         <li
           *ngFor="let category of categories"
@@ -83,7 +78,6 @@
         </li>
       </ul>
 
-      <!-- Form tìm kiếm với input -->
       <form class="search-form" (ngSubmit)="searchMenu()">
         <input
           type="text"
@@ -98,12 +92,10 @@
         </button>
       </form>
 
-      <!-- Hành động dành cho Admin -->
       <div class="admin-actions" *ngIf="userRole === 'Admin'">
         <a class="btn btn-primary" routerLink="/admin-menu/add">Thêm món ăn</a>
       </div>
 
-      <!-- Hiển thị danh sách món ăn -->
       <div class="filters-content">
         <div class="row grid">
           <div class="col-sm-6 col-lg-4 all" *ngFor="let item of filteredMenuItems">
@@ -116,8 +108,7 @@
                   <h5>{{ item.name }}</h5>
                   <p>{{ item.description }}</p>
                   <div class="options">
-                    <h6>${{ item.price }}</h6>
-                    <!-- Nút sửa và xóa chỉ hiển thị cho Admin -->
+                    <h6>{{ item.price }} đ</h6>
                     <button
                       class="btn btn-warning"
                       *ngIf="userRole === 'Admin'"
@@ -142,27 +133,33 @@
 
     </div>
   </section>
-  <!-- Kết thúc phần thực đơn -->
 
-  <!-- Phần chân trang -->
   <footer class="footer_section">
     <div class="container">
       <div class="row">
         <div class="col-md-4 footer-col">
           <div class="footer_contact">
-            <h4>Liên hệ</h4>
+            <h4>
+              Liên hệ
+            </h4>
             <div class="contact_link_box">
               <a href="">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>Địa điểm</span>
+                <span>
+                  Địa điểm: Chung cư Nguyễn Hoàng B1 thành phố Đà Lạt
+                </span>
               </a>
               <a href="">
                 <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>Gọi +84 0358082764</span>
+                <span>
+                  Gọi +84: 0358082764
+                </span>
               </a>
               <a href="">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span><!-- demo@gmail.com --></span>
+                <span>
+                  Songcam2k3
+                </span>
               </a>
             </div>
           </div>
@@ -173,44 +170,35 @@
               Feane
             </a>
             <p>
-              Điều cần thiết, tạo nên bộ tạo nội dung đầu tiên thực sự trên Internet. Nó sử dụng một từ điển gồm hơn 200 từ tiếng Latin, kết hợp với
+              Trang web này được thiết kế để giúp thực khách dễ dàng kiểm tra thực đơn yêu thích và tình trạng đặt bàn tại nhà hàng, từ đó lựa chọn và trải nghiệm ẩm thực một cách thuận tiện và nhanh chóng.
             </p>
             <div class="footer_social">
-              <a href="" style="text-decoration: none;">
+              <a href="https://www.facebook.com/SongCam2k3" style="text-decoration: none;">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
               </a>
-              <a href="" style="text-decoration: none;">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="" style="text-decoration: none;">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="" style="text-decoration: none;">
+              <a href="https://www.instagram.com/tsc_2003/" style="text-decoration: none;">
                 <i class="fa fa-instagram" aria-hidden="true"></i>
               </a>
-              <a href="" style="text-decoration: none;">
+              <a href="https://www.pinterest.com/songcam2k3/" style="text-decoration: none;">
                 <i class="fa fa-pinterest" aria-hidden="true"></i>
               </a>
             </div>
           </div>
         </div>
         <div class="col-md-4 footer-col">
-          <h4>Giờ mở cửa</h4>
-          <p>Hàng ngày</p>
-          <p>10.00 Am -10.00 Pm</p>
+          <h4>
+            Giờ mở cửa
+          </h4>
+          <p>
+            Hàng ngày
+          </p>
+          <p>
+            10:00 Sáng - 10:00 Tối
+          </p>
         </div>
-      </div>
-      <div class="footer-info">
-        <p>
-          &copy; <span id="displayYear"></span> All Rights Reserved By
-          <a href="https://html.design/">Free Html Templates</a><br><br>
-          &copy; <span id="displayYear"></span> Distributed By
-          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-        </p>
       </div>
     </div>
   </footer>
-  <!-- Kết thúc phần chân trang -->
 
   <!-- jQuery -->
   <script src="assets/js/jquery-3.4.1.min.js"></script>

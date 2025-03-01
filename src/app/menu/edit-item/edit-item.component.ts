@@ -12,7 +12,6 @@ import { ApiService, MenuItem } from '../../services/api.service';
   styleUrls: ['./edit-item.component.css']
 })
 export class EditItemComponent implements OnInit {
-  // Khởi tạo item với các trường bắt buộc
   item: MenuItem = {
     name: '',
     description: '',
@@ -30,7 +29,6 @@ export class EditItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Lấy ID món ăn từ URL và gọi API để lấy thông tin món ăn cần sửa
     const id = this.route.snapshot.params['id'];
     this.apiService.getMenuItemById(id).subscribe(
       (data: MenuItem) => {
@@ -50,19 +48,16 @@ export class EditItemComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // Tạo đối tượng FormData và đính kèm các trường dữ liệu
     const formData = new FormData();
     formData.append('name', this.item.name);
     formData.append('description', this.item.description);
     formData.append('price', this.item.price.toString());
     formData.append('category', this.item.category);
 
-    // Nếu người dùng chọn file mới, đính kèm file vào formData
     if (this.selectedFile) {
       formData.append('file', this.selectedFile, this.selectedFile.name);
     }
 
-    // Gọi API cập nhật món ăn. Đảm bảo ApiService có phương thức updateMenuItem nhận (id, formData)
     this.apiService.updateMenuItem(this.item.id!, formData).subscribe(
       (response: MenuItem) => {
         console.log('Món ăn đã được cập nhật:', response);

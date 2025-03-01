@@ -10,22 +10,18 @@ export class BookingService {
 
   constructor(private http: HttpClient) {}
 
-  // Lấy danh sách đặt bàn
   getBookings(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  // Thêm đặt bàn mới
   addBooking(booking: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, booking);
   }
 
-  // Sửa đặt bàn
   updateBooking(booking: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${booking.id}`, booking);
   }
 
-  // Xóa đặt bàn
   deleteBooking(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }

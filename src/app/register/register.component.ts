@@ -25,7 +25,6 @@ export class RegisterComponent {
       return;
     }
 
-    // Tạo đối tượng người dùng mới, lưu username, email, password và role mặc định là 'User'
     const newUser = { 
       username: this.name,
       email: this.email, 

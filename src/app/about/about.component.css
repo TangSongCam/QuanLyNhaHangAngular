@@ -3,20 +3,18 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: black; /* Màu nền đen */
-    z-index: 1000; /* Giữ header trên cùng */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
+    background-color: black; 
+    z-index: 1000; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
     padding: 10px 0;
   }
   
-  /* Để chữ trên header dễ nhìn hơn */
   .header_section a,
   .header_section span,
   .header_section i {
     color: white !important;
   }
   
-  /* Tránh nội dung bị che mất bởi header */
   body {
     padding-top: 80px;
   }

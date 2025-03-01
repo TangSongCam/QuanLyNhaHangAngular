@@ -58,7 +58,7 @@
         catchError(this.handleError)
       );
     }
-
+    //lấy danh sách bànbàn
     getTables(): Observable<any> {
       return this.http.get(`${this.baseUrl}/Table`).pipe(
         catchError(this.handleError)
@@ -118,7 +118,6 @@
   // Cập nhật món ăn
   updateMenuItem(id: number, formData: FormData): Observable<MenuItem> {
     const url = `${this.baseUrl}/menu/${id}`;
-    // Nếu backend yêu cầu role, bạn có thể thêm header hoặc query string. Ví dụ:
     const headers = { 'Role': 'Admin' };
     return this.http.put<MenuItem>(url, formData, { headers }).pipe(
       catchError(this.handleError)

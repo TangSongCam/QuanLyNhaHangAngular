@@ -21,7 +21,7 @@ export class LoginComponent {
     const credentials = { email: this.email, password: this.password };
     this.authService.login(credentials).subscribe(
       (response: any) => {
-        localStorage.setItem('userName', response.userName);
+        this.authService.setUserName(response.userName);
         this.authService.setRole(response.role);
 
         alert('Đăng nhập thành công!');

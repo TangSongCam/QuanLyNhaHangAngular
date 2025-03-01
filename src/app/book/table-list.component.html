@@ -1,7 +1,7 @@
+<body>
+
 <div class="container mt-4">
   <h2 class="text-center mb-4">📋 Danh Sách Bàn</h2>
-
-  <!-- Bảng danh sách bàn -->
   <table class="table table-bordered table-striped text-center">
     <thead class="table-dark">
       <tr>
@@ -32,7 +32,6 @@
     </tbody>
   </table>
 
-  <!-- Form Thêm Bàn với toggle -->
   <div class="card mt-4 shadow">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h4 class="card-title mb-0">➕ Thêm Bàn Mới</h4>
@@ -42,7 +41,6 @@
     </div>
     <div class="card-body" *ngIf="showAddForm">
       <div class="input-group mb-3">
-        <!-- Input cho tên bàn -->
         <input
           type="text"
           class="form-control"
@@ -51,7 +49,6 @@
         />
       </div>
       <div class="input-group mb-3">
-        <!-- Sử dụng dropdown cho trạng thái bàn -->
         <select class="form-control" [(ngModel)]="newTable.status">
           <option value="Available">Available</option>
           <option value="Occupied">Occupied</option>
@@ -61,7 +58,6 @@
     </div>
   </div>
 
-  <!-- Form Sửa Bàn với toggle (chỉ hiển thị khi editTable khác null) -->
   <div *ngIf="editTable" class="card mt-4 shadow">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h4 class="card-title mb-0">✏️ Chỉnh Sửa Bàn</h4>
@@ -71,7 +67,6 @@
     </div>
     <div class="card-body" *ngIf="showEditForm">
       <div class="input-group mb-3">
-        <!-- Input cho tên bàn -->
         <input
           type="text"
           class="form-control"
@@ -80,7 +75,6 @@
         />
       </div>
       <div class="input-group mb-3">
-        <!-- Dropdown cho trạng thái bàn -->
         <select class="form-control" [(ngModel)]="editTable.status">
           <option value="Available">Available</option>
           <option value="Occupied">Occupied</option>
@@ -90,3 +84,5 @@
     </div>
   </div>
 </div>
+  
+</body>
